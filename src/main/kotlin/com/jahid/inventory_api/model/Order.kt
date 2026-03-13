@@ -1,6 +1,5 @@
 package com.jahid.inventory_api.model
 
-import com.jahid.inventory_api.dto.OrderRequest
 import com.jahid.inventory_api.enums.OrderStatus
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity

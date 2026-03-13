@@ -1,6 +1,7 @@
 package com.jahid.inventory_api.controller
 
 import com.jahid.inventory_api.dto.OrderRequest
+import com.jahid.inventory_api.dto.OrderResponse
 import com.jahid.inventory_api.model.Order
 import com.jahid.inventory_api.service.OrderService
 import org.springframework.http.ResponseEntity
@@ -15,7 +16,7 @@ class OrderController(
     private val orderService: OrderService
 ) {
     @PostMapping
-    fun placeOrder(@RequestBody order: OrderRequest): ResponseEntity<Order> {
-        return ResponseEntity.ok().body(orderService.placeOrder(order))
+    fun placeOrder(@RequestBody order: OrderRequest): ResponseEntity<OrderResponse> {
+        return ResponseEntity<OrderResponse>.ok().body(orderService.placeOrder(order))
     }
 }

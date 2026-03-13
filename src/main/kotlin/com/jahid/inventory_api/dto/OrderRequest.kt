@@ -5,5 +5,5 @@ import com.jahid.inventory_api.model.Product
 
 data class OrderRequest(
     var email: String,
-    var items: Map<Long, Int>
+    var items: Map<Long, Int> //
 )

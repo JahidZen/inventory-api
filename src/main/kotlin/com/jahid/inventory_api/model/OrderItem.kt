@@ -21,7 +21,7 @@ data class OrderItem(
     val product: Product,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oder_id")
+    @JoinColumn(name = "order_id")
     var order: Order? = null,
 
     var quantity: Long = 0,
