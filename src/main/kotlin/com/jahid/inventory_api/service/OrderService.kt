@@ -47,4 +47,10 @@ class OrderService(
         orderRepository.save(order)
         return order.toOrderResponse()
     }
+
+
+
+    fun getAllOrders(): List<OrderResponse> {
+        return orderRepository.findAll().map { it.toOrderResponse() }
+    }
 }
