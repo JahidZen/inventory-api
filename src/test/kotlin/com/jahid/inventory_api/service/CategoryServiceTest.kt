@@ -63,7 +63,7 @@ class CategoryServiceTest {
         whenever(categoryRepository.findById(1)).thenReturn(Optional.empty())
 
         assertThrows<CategoryService.CategoryNotFoundException> {
-            categoryService.createCategory(request)
+            categoryService.deleteCategory(1)
         }
     }
 
