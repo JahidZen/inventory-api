@@ -1,31 +1,30 @@
-version: '3.8'
-
 services:
-  postgres:
+  inventory-db:
     image: postgres:15-alpine
-    container_name: inventory_db
+    environment:
+      POSTGRES_DB: inventory_db
+      POSTGRES_USER: inventory_user
+      POSTGRES_PASSWORD: inventory_pass
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=inventory_user
-      - POSTGRES_PASSWORD=inventory_pass
-      - POSTGRES_DB=inventory_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      # This physically pings the database until it gets a successful response
+      test: ["CMD-SHELL", "pg_isready -U inventory_user -d inventory_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  # THIS IS NEW
   inventory-app:
-    build: . # Tells Docker to look for the Dockerfile in the current directory
-    container_name: inventory_app
-    ports:
-      - "8080:8080" # Map your laptop's 8080 to the container's 8080
+    build: .
     depends_on:
-      - postgres # Don't start the app until the DB is running
+      inventory-db:
+        # App will NOT start until the health check above passes
+        condition: service_healthy
     environment:
-      # We pass the DB credentials and host directly into the container!
-      - POSTGRES_HOST=postgres
-      - SPRING_DATASOURCE_USERNAME=inventory_user
-      - SPRING_DATASOURCE_PASSWORD=inventory_pass
-
-volumes:
-  postgres_data:
+      # Notice the hyphen instead of the underscore in the URL host
+      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventory_db
+      SPRING_DATASOURCE_USERNAME: inventory_user
+      SPRING_DATASOURCE_PASSWORD: inventory_pass
+    ports:
+      - "8080:8080"
+    restart: on-failure # If it ever crashes for another reason, try again
