@@ -58,4 +58,10 @@ class ProductController(private val productService: ProductService) {
     fun stockUpdate(@PathVariable id: Long, @RequestParam quantity: Int): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(productService.stockUpdate(id, quantity))
     }
+
+
+    @GetMapping("/ping")
+    fun ping(): ResponseEntity<String> {
+        return ResponseEntity.ok("Hello from the Automated Cloud!")
+    }
 }
