@@ -60,7 +60,7 @@ class ProductController(private val productService: ProductService) {
     }
 
 
-    @GetMapping("/ping")
+    @GetMapping("/ping-test")
     fun ping(): ResponseEntity<String> {
         return ResponseEntity.ok("Hello from the Automated Cloud!")
     }
