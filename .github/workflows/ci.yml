@@ -58,7 +58,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: YOUR_DOCKER_USERNAME/inventory-api:latest
+          tags: jahid1018/inventory-api:latest
 
   deploy:
     runs-on: ubuntu-latest
