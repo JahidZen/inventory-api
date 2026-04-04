@@ -25,6 +25,12 @@ class ProductController(private val productService: ProductService) {
     }
 
 
+    @GetMapping
+    fun getAllProducts(): ResponseEntity<List<ProductResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts())
+    }
+
+
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: Long): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProduct(id))
